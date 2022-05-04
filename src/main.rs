@@ -1,30 +1,18 @@
 fn main() {
-    let penguin_data = "\
-    common name, length (cm)
-    Little penguin, 33
-    Yellow-eyed penfuin, 65
-    Fiordland peng, 60
-    Invalid, data
-    ";
-
-    let records = penguin_data.lines();
-
-    for (i, record) in records.enumerate() {
-        if i == 0 || record.trim().len() == 0 {
-            continue;
-        }
-
-        let fields: Vec<_> = record.split(',')
-            .map(|field| field.trim())
-            .collect();
+    let a = 20;
+    let b: i32 = 30;
     
-        if cfg!(debug_assertions) {
-            eprintln!("debug: {:?} -> {:?}", record.trim(), fields);
-        }
+    let addition = a + b;
+    println!("{} + {} = {}", a, b, addition);
 
-        let name = fields[0];
-        if let Ok(length) = fields[1].parse::<f32>() {
-            println!("{}, {}cm", name, length);
-        }
-    }
+    let d: i64 = 1_000_000;
+    println!("{}", d.pow(2));
+    println!("{} + {} = {}", a, d, (a + d));
+
+    let e =  [
+        5.0,
+        5f32,
+        5.0_f32
+    ];
+    println!("{:3}", e[1]);
 }
