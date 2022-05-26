@@ -1,5 +1,8 @@
 use regex::Regex;
 use clap::{App, Arg};
+use std::fs::File;
+use std::io::BufReader;
+use std::io::prelude::*;
 
 fn main() {
     let args = App::new("grep-lite")
@@ -13,15 +16,15 @@ fn main() {
     let pattern = args.value_of("pattern").unwrap();
     let re = Regex::new(pattern).unwrap();
 
-    let quote = "Every face, every shop, bedroom window, public-house, and
-    dark square is a picture feverishly turned--in search of what?
-    It is the same with books. What do we seek through millions of pages?";
+    let file = File::open("Cargo.toml").unwrap();
+    let buf_reader = BufReader::new(file);
 
-    for line in quote.lines() {
-        let contains_substring = re.find(line);
-        match contains_substring {
-            Some(_) => println!("{}", line),
-            None => ()
+    for line_ in buf_reader.lines() {
+        let line = line_.unwrap();
+
+        match re.find(&line) {
+            Some (_) => println!("{}", line),
+            None => (),
         }
     }
 }
