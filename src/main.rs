@@ -1,25 +1,27 @@
-// use num::complex::Complex;
+use regex::Regex;
+use clap::{Command, Arg};
 
 fn main() {
-    let search_term = "jangilo";
+    let args = Command::new("grep-lite")
+        .version("0.1")
+        .about("searches for patterns")
+        .arg(Arg::new("pattern")
+            .help("The pattern to search for")
+            .takes_value(true)
+            .required(true))
+        .get_matches();
+    
+        let pattern = args.value_of("pattern").unwrap();
+        let re = Regex::new(pattern).unwrap();
 
-    let quote = "\
-    Every man shall die, and it's no joke
-    dark square is a picture with no frames
-    Its looks like a jangilova";
-
-    // let mut line_num: usize = 1;
-
-    // for line in quote.lines() {
-    //     if line.contains(search_term) {
-    //         println!("{}, line: {}", line, line_num);
-    //     }
-    //     line_num += 1;
-    // }
-
-    for (i, line) in quote.lines().enumerate() {
-        if line.contains(search_term) {
-            println!("{}, line: {}", line, i + 1);
+        let quote = "Every face, every shop, bedroom window, public-house, and
+        dark square is a picture feverishly turned--in search of what?
+        It is the same with books. What do wee through millions of pages?";
+        
+        for line in quote.lines() {
+            match re.find(line) {
+                Some(_) => println!("{}", line),
+                None => (),
+            }
         }
-    }
 }
