@@ -18,6 +18,7 @@ fn process_lines<T: BufRead + Sized>(reader: T, re: Regex) {
 fn main() {
     let args = App::new("grep-lite")
         .version("0.1")
+        .author("bolajahmad")
         .about("searches for patterns")
         .arg(Arg::with_name("pattern")
             .help("The pattern to search for")
@@ -36,7 +37,6 @@ fn main() {
     if input == "-" {
         let stdin = io::stdin();
         let reader = stdin.lock();
-
         process_lines(reader, re);
     } else {
         let file = File::open(input).unwrap();
