@@ -1,46 +1,44 @@
-use regex::Regex;
-use clap::{App, Arg};
-use std::fs::File;
-use std::io;
-use std::io::BufReader;
-use std::io::prelude::*;
+#![allow(unused_variables)]
 
-fn process_lines<T: BufRead + Sized>(reader: T, re: Regex) {
-    for line_ in reader.lines() {
-        let line = line_.unwrap();
-
-        match re.find(&line) {
-            Some(_) => println!("{}", line),
-            None => println!("No matches were found!"),
-        }
-    }
+#[derive(Debug)]
+struct File {
+    name: String,
+    data: Vec<u8>,
 }
+
+fn open(file: &mut File) -> bool {
+    true
+}
+
+fn close(file: &mut File) -> bool {
+    true
+}
+
+#[allow(dead_code)]
+fn read(file: &mut File, save_to: &mut Vec<u8>) -> usize {
+    let mut tmp = file.data.clone();
+    let read_length = tmp.len();
+
+    save_to.reserve(read_length);
+    save_to.append(&mut tmp);
+    read_length
+}
+
 fn main() {
-    let args = App::new("grep-lite")
-        .version("0.1")
-        .author("bolajahmad")
-        .about("searches for patterns")
-        .arg(Arg::with_name("pattern")
-            .help("The pattern to search for")
-            .takes_value(true)
-            .required(true))
-        .arg(Arg::with_name("input")
-            .help("File to search")
-            .takes_value(true)
-            .required(false))
-        .get_matches();
+    let mut file1 = File {
+        name: String::from("file1.txt"),
+        data: vec![114, 117, 115, 116, 33],
+    };
 
-    let pattern = args.value_of("pattern").unwrap();
-    let re = Regex::new(pattern).unwrap();
-    let input = args.value_of("input").unwrap_or("-");
+    let mut buffer: Vec<u8> = vec![];
 
-    if input == "-" {
-        let stdin = io::stdin();
-        let reader = stdin.lock();
-        process_lines(reader, re);
-    } else {
-        let file = File::open(input).unwrap();
-        let reader = BufReader::new(file);
-        process_lines(reader, re);
-    }
+    open(&mut file1);
+    let f1_length = read(&mut file1, &mut buffer);
+    close(&mut file1);
+
+    let text = String::from_utf8_lossy(&buffer);
+
+    println!("{:?}", file1);
+    println!("{} is {} bytes long", &file1.name, f1_length);
+    println!("{}", text);
 }
