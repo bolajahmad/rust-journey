@@ -1,27 +1,15 @@
-use regex::Regex;
-use clap::{Command, Arg};
+use std::io;
 
 fn main() {
-    let args = Command::new("grep-lite")
-        .version("0.1")
-        .about("searches for patterns")
-        .arg(Arg::new("pattern")
-            .help("The pattern to search for")
-            .takes_value(true)
-            .required(true))
-        .get_matches();
-    
-        let pattern = args.value_of("pattern").unwrap();
-        let re = Regex::new(pattern).unwrap();
+    println!("Guess the number!!");
 
-        let quote = "Every face, every shop, bedroom window, public-house, and
-        dark square is a picture feverishly turned--in search of what?
-        It is the same with books. What do wee through millions of pages?";
-        
-        for line in quote.lines() {
-            match re.find(line) {
-                Some(_) => println!("{}", line),
-                None => (),
-            }
-        }
+    println!("Please input your number");
+
+    let mut guess = String::new();
+
+    io::stdin()
+        .read_line(&mut guess)
+        .expect("Failed to read line");
+
+    println!("You guessed: {guess}");
 }
