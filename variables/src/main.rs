@@ -1,13 +1,8 @@
 fn main() {
-    let x = 200;
-    const HOUR_TO_SECONDS: u32 = 1 * 60 * 60;
+    let spaces = "    ";
 
-    // x = 102;
-    // println!("The number is: {}", x);
+    println!("Spaces, \"{spaces}\"");
+    let spaces = spaces.len();
 
-    {
-        let x = 10;
-        println!("The number is shadowed as {}", x)
-    }
-    println!("The number is: {x}");
+    println!("Spaces, {spaces}");
 }
