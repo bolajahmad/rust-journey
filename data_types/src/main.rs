@@ -1,10 +1,35 @@
-fn main() {
-    // Defines an Octal number
-    let octal_digit: i16 = 0o_236;
-    const USER_PROFILE: (&str, u8, &str) = ("James", 23, "M");
-    // println!("Spaces, \"{spaces}\"");
-    // let spaces = spaces.len();
-    let (name, age, sex) = USER_PROFILE;
+use std::io;
 
-    println!("My name is {name} and I am {age}, also a {sex}");
+fn main() {
+    const MONTHS_AVAILABLE: [&str; 12] = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+
+    loop {
+        let mut index = String::new();
+        println!("Enter your birth month");
+        io::stdin()
+            .read_line(&mut index)
+            .expect("Failed to read line");
+
+        let index: usize = index.trim().parse().expect("Invalid index received");
+
+        if index >= 12 {
+            continue;
+        }
+
+        println!("Your date is {}", MONTHS_AVAILABLE[index]);
+        break;
+    }
 }
