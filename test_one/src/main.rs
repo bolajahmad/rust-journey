@@ -1,26 +1,18 @@
 fn main() {
-    let temp = celsius_fahrenheit_converter(200, TemperatureScales::FahrenheitToCelsius);
-    println!("World Temperature: {}degC", temp);
+    println!("Fibonacci Printer");
 
-    let recover_value = celsius_fahrenheit_converter(temp, TemperatureScales::CelsiusToFahrenheit);
-    println!("World temperature: {}degF", recover_value);
+    let test_value = 13;
+    let tester = fibonacci(test_value);
+    println!("Fibonacci of {test_value} is {tester}");
 }
 
-#[derive(PartialEq)]
-enum TemperatureScales {
-    FahrenheitToCelsius,
-    CelsiusToFahrenheit,
-}
-
-fn celsius_fahrenheit_converter(value: i64, scale: TemperatureScales) -> i64 {
-    let resulting_temp;
-    let result = if scale == TemperatureScales::CelsiusToFahrenheit {
-        resulting_temp = 9 * value / 5 + 32;
-        resulting_temp
+// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181
+fn fibonacci(value: i64) -> i64 {
+    if value == 0 {
+        return 0;
+    } else if value == 1 {
+        return 1;
     } else {
-        resulting_temp = (value - 32) * 5 / 9;
-        resulting_temp
-    };
-
-    result
+        fibonacci(value - 1) + fibonacci(value - 2)
+    }
 }
