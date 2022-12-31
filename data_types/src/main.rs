@@ -1,4 +1,4 @@
-use std::io;
+// use std::io;
 
 fn main() {
     const MONTHS_AVAILABLE: [&str; 12] = [
@@ -16,20 +16,25 @@ fn main() {
         "December",
     ];
 
-    loop {
-        let mut index = String::new();
-        println!("Enter your birth month");
-        io::stdin()
-            .read_line(&mut index)
-            .expect("Failed to read line");
-
-        let index: usize = index.trim().parse().expect("Invalid index received");
-
-        if index >= 12 {
-            continue;
-        }
-
-        println!("Your date is {}", MONTHS_AVAILABLE[index]);
-        break;
+    for number in 0..12 {
+        println!("{}!", MONTHS_AVAILABLE[number]);
     }
+    println!("LIFTOFF!!!");
+
+    // loop {
+    //     let mut index = String::new();
+    //     println!("Enter your birth month");
+    //     io::stdin()
+    //         .read_line(&mut index)
+    //         .expect("Failed to read line");
+
+    //     let index: usize = index.trim().parse().expect("Invalid index received");
+
+    //     if index >= 12 {
+    //         continue;
+    //     }
+
+    //     println!("Your date is {}", MONTHS_AVAILABLE[index]);
+    //     break;
+    // }
 }

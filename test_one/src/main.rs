@@ -1,19 +1,16 @@
+// Fix all errors without adding newline
 fn main() {
-    let rectangle = Rectangle {
-        width: dbg!(20),
-        height: 5,
-    };
-    // dbg!(&rectangle);
-    println!("rectangle is {:#?}", rectangle);
-    calculate_area(&rectangle);
-}
+    #[allow(dead_code)]
+    #[derive(Debug)]
+    enum Message {
+        Quit,
+        ChangeColor(i32, i32, i32),
+        Move { x: i32, y: i32 },
+        Write(String),
+    }
+    let v = vec!["Hello".to_string(), "World".to_string()];
 
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
+    let v1: Vec<Message> = v.into_iter().map(Message::Write).collect();
 
-fn calculate_area(rectangle: &Rectangle) -> u32 {
-    rectangle.height * rectangle.width
+    println!("{:?}", v1);
 }

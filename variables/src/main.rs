@@ -4,5 +4,5 @@ fn main() {
     println!("Spaces, \"{spaces}\"");
     let spaces = spaces.len();
 
-    println!("Spaces, {spaces}");
+    println!("Spaces, \"{spaces}\"");
 }
