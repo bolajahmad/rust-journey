@@ -1,0 +1,1 @@
+/Users/bolajahmad/Documents/fun/rust-journey/crate-module/target/debug/crate-module: /Users/bolajahmad/Documents/fun/rust-journey/crate-module/src/lib.rs /Users/bolajahmad/Documents/fun/rust-journey/crate-module/src/main.rs
