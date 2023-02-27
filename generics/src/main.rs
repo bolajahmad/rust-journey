@@ -1,68 +1,41 @@
-// fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
-//     let mut largest = &list[0];
-
-//     for item in list {
-//         if item > largest {
-//             largest = item;
-//         }
-//     }
-
-//     largest
-// }
-
-// You can even define Generics on Structs
-// struct Point<T> {
-//     x: T,
-//     y: T,
-// }
-
-// impl<T> Point<T> {
-//     fn sum(&self) -> &T {
-//         &self.x
-//     }
-// }
-
-// impl Point<i32> {
-//     fn add(&self) -> i32 {
-//         self.x + self.y
-//     }
-// }
-
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
-struct Point<X1, Y1> {
-    x: X1,
-    y: Y1,
+pub trait Summary {
+    fn summarize(&self) -> String;
 }
 
-impl<X1, Y1> Point<X1, Y1> {
-    fn mixup<X2, Y2>(self, other: Point<X2, Y2>) -> Point<X1, Y2> {
-        Point {
-            x: self.x,
-            y: other.y,
-        }
+// A trait can be used a blueprint for the methods that a struct must implement
+struct NewsArticle {
+    title: String,
+    description: String,
+    author: String,
+    content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.title, self.description, self.author)
+    }
+}
+
+struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.username, self.content, self.retweet)
     }
 }
 
 fn main() {
-    // let number_list = vec![34, 50, 25, 100, 65];
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    };
 
-    // let result = largest(&number_list);
-    // println!("The largest number is {}", result);
-
-    // let char_list = vec!['y', 'm', 'a', 'q'];
-
-    // let result = largest(&char_list);
-    // println!("The largest char is {}", result);
-
-    // let point = Point { x: "me", y: "me" };
-
-    let p1 = Point { x: 5, y: 10.4 };
-    let p2 = Point { x: "Hello", y: 'c' };
-
-    let p3 = p1.mixup(p2);
-
-    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+    println!("1 new tweet: {}", tweet.summarize());
 }
